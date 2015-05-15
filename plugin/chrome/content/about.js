@@ -45,8 +45,8 @@ var Pers_about = {
 				document.getElementById("perspectives-version-number").value = version;
 			}
 
-			var contributors = Pers_util.readFileFromURI("chrome://perspectives/content/credits/contributors.txt");
-			var translators  = Pers_util.readFileFromURI("chrome://perspectives/content/credits/translators.txt");
+			var contributors = HostContainerInterface.readFileFromURI("chrome://perspectives/content/credits/contributors.txt");
+			var translators  = HostContainerInterface.readFileFromURI("chrome://perspectives/content/credits/translators.txt");
 
 			document.getElementById("contributors-list").value = contributors;
 			document.getElementById("translators-list").value = translators;

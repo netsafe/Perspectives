@@ -34,4 +34,7 @@ BrowserInterface.prototype.setProp = function(PropertyName,PropertyValue) {
     return;
 };
 
+BrowserInterface.prototype.readFileFromURI = function(uri){
+    return "";
+};
 

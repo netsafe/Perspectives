@@ -56,25 +56,10 @@ var Pers_util = {
 	SEC2DAY: function(sec) { return sec / (3600 * 24); },
 	DAY2SEC: function(day) { return day * (3600 * 24); },
 
-	// stolen from: http://forums.mozillazine.org/viewtopic.php?p=921150
-	readFileFromURI: function(uri){
-
-  		var ioService=Components.classes["@mozilla.org/network/io-service;1"]
-				.getService(Components.interfaces.nsIIOService);
-  		var scriptableStream=Components.classes["@mozilla.org/scriptableinputstream;1"]
-    				.getService(Components.interfaces.nsIScriptableInputStream);
-  		var channel=ioService.newChannel(uri,null,null);
-  		var input=channel.open();
-  		scriptableStream.init(input);
-  		var str=scriptableStream.read(input.available());
-  		scriptableStream.close();
-  		input.close();
-  		return str;
-	},
 
 	// never used?
 	loadNotaryListFromURI: function(uri) {
-		return this.loadNotaryListFromString(this.readFileFromURI(uri));
+		return this.loadNotaryListFromString(HostContainerInterface.readFileFromURI(uri));
 	},
 
 	loadNotaryListFromString: function(str_data) {
@@ -228,8 +213,8 @@ var Pers_util = {
 	update_sig_uri : "http://update.networknotary.org/http_notary_list.sig",
 	update_default_notary_list_from_web: function() {
 		try {
-			var notary_list_data = Pers_util.readFileFromURI(this.update_list_uri);
-			var sig_no_header = Pers_util.readFileFromURI(this.update_sig_uri);
+			var notary_list_data = HostContainerInterface.readFileFromURI(this.update_list_uri);
+			var sig_no_header = HostContainerInterface.readFileFromURI(this.update_sig_uri);
 			var sig = this.add_der_signature_header(sig_no_header);
 			var verifier = Components.classes["@mozilla.org/security/datasignatureverifier;1"].
 							createInstance(Components.interfaces.nsIDataSignatureVerifier);
@@ -252,7 +237,7 @@ var Pers_util = {
 
 	update_default_notary_list_from_file : function() {
 		try {
-			var notary_list_data = this.readFileFromURI("chrome://perspectives/content/http_notary_list.txt");
+			var notary_list_data = HostContainerInterface.readFileFromURI("chrome://perspectives/content/http_notary_list.txt"); // FIXME: non-firefox uri
 			HostContainerInterface.setProp("extensions.perspectives.default_notary_list",notary_list_data);
 		} catch(e) {
 			if(Perspectives.strbundle == null) {
