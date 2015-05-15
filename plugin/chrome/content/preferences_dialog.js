@@ -17,8 +17,6 @@
 */
 
 var Pers_pref = {
-	root_prefs: Components.classes["@mozilla.org/preferences-service;1"].
-				getService(Components.interfaces.nsIPrefBranch),
 
 	disable_quorum_text: function(is_disabled) {
 		document.getElementById("quorum-thresh-text").disabled=is_disabled;
@@ -176,8 +174,8 @@ var Pers_pref = {
 		var ret = true;
 
 		try {
-			if (this.root_prefs.getIntPref("extensions.perspectives.required_duration") < 0) {
-				this.root_prefs.setIntPref("extensions.perspectives.required_duration", 0);
+			if (HostContainerInterface.getProp("extensions.perspectives.required_duration") < 0) {
+				HostContainerInterface.setProp("extensions.perspectives.required_duration", 0);
 			}
 		} catch (e) {
 			Pers_util.pers_alert(e);
@@ -185,10 +183,10 @@ var Pers_pref = {
 		}
 
 		try {
-			if (this.root_prefs.getIntPref("extensions.perspectives.quorum_thresh") < 1) {
-				this.root_prefs.setIntPref("extensions.perspectives.quorum_thresh", 1);
-			} else if (this.root_prefs.getIntPref("extensions.perspectives.quorum_thresh") > 100) {
-				this.root_prefs.setIntPref("extensions.perspectives.quorum_thresh", 100);
+			if (HostContainerInterface.getProp("extensions.perspectives.quorum_thresh") < 1) {
+				HostContainerInterface.setProp("extensions.perspectives.quorum_thresh", 1);
+			} else if (HostContainerInterface.getProp("extensions.perspectives.quorum_thresh") > 100) {
+				HostContainerInterface.setProp("extensions.perspectives.quorum_thresh", 100);
 			}
 		} catch (e) {
 			Pers_util.pers_alert(e);
@@ -198,7 +196,7 @@ var Pers_pref = {
 		try {
 			var whitelist_prefs = Pers_pref.whitelist_treeView.serialize();
 			for(var i = 0; i < whitelist_prefs.length; i++) {
-				this.root_prefs.setCharPref(whitelist_prefs[i].pref, whitelist_prefs[i].value);
+				HostContainerInterface.setProp(whitelist_prefs[i].pref, whitelist_prefs[i].value);
 			}
 		} catch (e) {
 			Pers_util.pers_alert(e);
@@ -223,9 +221,9 @@ var Pers_pref = {
 			// list to show based on whether the checkbox is selected.
 			var auto_update = document.getElementById("enable_default_list_auto_update").checked;
 			if(auto_update) {
-				Pers_util.update_default_notary_list_from_web (this.root_prefs);
+				Pers_util.update_default_notary_list_from_web ();
 			} else {
-				Pers_util.update_default_notary_list_from_file(this.root_prefs);
+				Pers_util.update_default_notary_list_from_file();
 			}
 			this.load_preferences();
 		} catch(e) {
@@ -239,12 +237,12 @@ var Pers_pref = {
 			Pers_pref.security_class_change();
 			Pers_pref.disable_reminder_box();
 
-			var whitelist          = this.root_prefs.getCharPref("extensions.perspectives.whitelist");
-			var whitelist_disabled = this.root_prefs.getCharPref("extensions.perspectives.whitelist_disabled");
+			var whitelist          = HostContainerInterface.getProp("extensions.perspectives.whitelist");
+			var whitelist_disabled = HostContainerInterface.getProp("extensions.perspectives.whitelist_disabled");
 			Pers_pref.whitelist_treeView.init(whitelist, whitelist_disabled);
 			document.getElementById('whitelist').view = Pers_pref.whitelist_treeView;
 
-			document.getElementById("default_notary_list").value = this.root_prefs.getCharPref("extensions.perspectives.default_notary_list");
+			document.getElementById("default_notary_list").value = HostContainerInterface.getProp("extensions.perspectives.default_notary_list");
 		} catch(e) {
 			Pers_util.pers_alert(e);
 		}

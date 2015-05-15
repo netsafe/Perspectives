@@ -213,7 +213,13 @@
             <button label="&Cancel;" onclick="window.close();"/>
         </hbox>
     </prefpane>
+  <script type="application/x-javascript" src="browser.js"/>
+  <script type="application/x-javascript" src="browsers/FirefoxBrowser.js"/>
 
     <script type="application/x-javascript" src="preferences_dialog.js"></script>
     <script type="application/x-javascript" src="common.js"            ></script>
+  <script type="application/x-javascript">
+    var HostContainerInterface = new FirefoxInterface();
+  </script>
+
 </prefwindow>

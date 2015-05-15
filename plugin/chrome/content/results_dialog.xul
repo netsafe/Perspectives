@@ -47,7 +47,14 @@
   <button label = "&Close;" onclick="window.close()"/>
 </hbox>
 
+<script type="application/x-javascript" src="browser.js"/>
+<script type="application/x-javascript" src="browsers/FirefoxBrowser.js"/>
+
+
 <script type="application/x-javascript" src="common.js"/>
 <script type="application/x-javascript" src="results_dialog.js"/>
+  <script type="application/x-javascript">
+    var HostContainerInterface = new FirefoxInterface();
+  </script>
 
 </window> 

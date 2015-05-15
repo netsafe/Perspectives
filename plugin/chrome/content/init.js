@@ -1,13 +1,12 @@
     function evtLoad() {
       Perspectives.init_data();
       Perspectives.initNotaries();
-      var root_prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
       // call this *after* the document has loaded
       // so we have access to the stringbundle from statusbar.xul
       Perspectives.prompt_update();
 
-      var firstrun = root_prefs.getBoolPref("extensions.perspectives.first_run");
+      var firstrun = HostContainerInterface.getProp("extensions.perspectives.first_run");
       if (firstrun) {
 	  HostContainerInterface.setPref("extensions.perspectives.first_run", false);
           var bname = "perspectives-status-button";
@@ -20,7 +19,7 @@
           // we don't want to touch it
       }
 
-      if(!Perspectives.root_prefs.getBoolPref("extensions.perspectives.show_label")){
+      if(!HostContainerInterface.getProp("extensions.perspectives.show_label")){
         document.getElementById("perspective-statusbar-label").hidden = true;
       }
     }
