@@ -694,7 +694,7 @@ var Perspectives = {
 			}
 
 			// respect private browsing mode
-			var contact_private = HostContainerInterface.getBoolPref("extensions.perspectives.contact_in_private_browsing_mode");
+			var contact_private = HostContainerInterface.getProp("extensions.perspectives.contact_in_private_browsing_mode");
 			if(!contact_private) {
 				var is_private = true; // default to true, better err on the safe side
 				try { // Firefox 20+
@@ -871,7 +871,7 @@ var Perspectives = {
 	is_whitelisted_by_user : function(host) {
 		try {
 			/* be cautious in case we got a bad user edit to the whitelist */
-			var whitelist = HostContainerInterface.getCharPref("extensions.perspectives.whitelist").split(",");
+			var whitelist = HostContainerInterface.getProp("extensions.perspectives.whitelist").split(",");
 			for(var entry in whitelist) {
 				if(whitelist.hasOwnProperty(entry)) {
 					var e = whitelist[entry];

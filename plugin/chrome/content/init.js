@@ -8,7 +8,7 @@
 
       var firstrun = HostContainerInterface.getProp("extensions.perspectives.first_run");
       if (firstrun) {
-	  HostContainerInterface.setPref("extensions.perspectives.first_run", false);
+	  HostContainerInterface.setProp("extensions.perspectives.first_run", false);
           var bname = "perspectives-status-button";
 
           if (!document.getElementById(bname)) {

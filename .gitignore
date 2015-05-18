@@ -7,4 +7,7 @@ build/
 *.tar.gz
 *.zip
 
+# ignore win dev env backup of extension proxy file
+perspectives@cmu.edu
+
 
