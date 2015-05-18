@@ -17,6 +17,10 @@ While I was examining the code, I saw that it's abit unstructured. Also the fact
 
 
 A BrowserInterface prototype object was placed in browser.js. It describes the basic abstraction interface for a host container, and the global instance is HostControllerInterface. Firefox interface, and lately any other browsers, is placed in browsers/ folder and should be includet on top of the script stack after browser.js ``
+var xxxInterface = function() {
+    BrowserInterface.call(this);
+    // do the constructor stuff
+};
 // instantiate properly
 xxxInterface.prototype=Object.create(BrowserInterface.prototype);
 xxxInterface.prototype.constructor=xxxInterface;
